@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charmaine Chan | Strategic Marketing & Project Management Portfolio</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.2/Sortable.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif', 'PingFang HK', '"Microsoft JhengHei"'] },
+                    colors: {
+                        brand: { teal: '#0F766E', tealLight: '#F0FDFA', tealDark: '#115E59', navy: '#0F172A', slate: '#475569', gold: '#D4AF37' }
+                    },
+                    boxShadow: { 'glass': '0 10px 40px -10px rgba(15, 23, 42, 0.03)', 'floating': '0 30px 60px -15px rgba(0,0,0,0.04)' }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { background-color: #FAFAFA; font-family: 'Plus Jakarta Sans', 'PingFang HK', sans-serif; overflow-x: hidden; scroll-behavior: smooth; letter-spacing: 0.02em; }
+        .premium-bg { background: #FDFCFB; position: relative; }
+        .premium-bg::before, .premium-bg::after, .bg-orb { content: ''; position: absolute; border-radius: 50%; filter: blur(100px); z-index: 0; pointer-events: none; }
+        .premium-bg::before { top: -5%; left: -10%; width: 50vw; height: 50vw; background: rgba(20,184,166,0.05); }
+        .premium-bg::after { bottom: 5%; right: -10%; width: 45vw; height: 45vw; background: rgba(245,158,11,0.03); }
+        .bg-orb { top: 35%; left: 25%; width: 35vw; height: 35vw; background: rgba(59,130,246,0.02); }
+        .content-wrapper { position: relative; z-index: 1; max-width: 1140px; margin: 0 auto; padding: 5rem 2rem; }
+        .glass-card { background: rgba(255,255,255,0.75); backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(241,245,249,0.8); border-radius: 28px; transition: all 0.5s cubic-bezier(0.16,1,0.3,1); position: relative; overflow: hidden; }
+        .glass-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.06); border-color: rgba(15,118,110,0.15); }
+        .hover-lift { transition: all 0.4s ease; }
+        .hover-lift:hover { transform: translateY(-6px); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.06); }
+        .timeline-container { position: relative; padding-left: 2rem; margin-top: 1.5rem; }
+        .timeline-container::before { content: ''; position: absolute; left: 0.5rem; top: 0; bottom: 0; width: 2px; background: #F1F5F9; z-index: 0; }
+        .timeline-item { position: relative; margin-bottom: 2rem; }
+        .timeline-icon { position: absolute; left: -2rem; top: 0.25rem; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: white; border: 2px solid #0F766E; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: bold; color: #0F766E; z-index: 1; }
+        .img-container { position: relative; border-radius: 18px; overflow: hidden; border: 1px solid rgba(241,245,249,0.9); background: #F8FAFC; transition: all 0.4s ease; min-width: 100px; min-height: 80px; }
+        .img-container:hover { transform: scale(1.005); box-shadow: 0 12px 30px -5px rgba(15,118,110,0.08); }
+        .img-container img { width: 100%; height: 100%; display: block; object-fit: contain; }
+        .img-label { position: absolute; top: 0.75rem; left: 0.75rem; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); padding: 0.3rem 0.75rem; border-radius: 10px; font-size: 0.65rem; font-weight: 800; color: #0F766E; z-index: 10; letter-spacing: 0.05em; }
+        
+        /* 甘特圖設定 */
+        .gantt-wrapper { background: rgba(255,255,255,0.8); border-radius: 16px; border: 1px solid rgba(241,245,249,0.9); padding: 16px; overflow-x: auto; }
+        .gantt-row { display: flex; align-items: center; width: 100%; min-width: 600px; border-bottom: 1px solid rgba(241,245,249,0.5); height: 26px; }
+        .gantt-header-row { display: flex; align-items: center; width: 100%; min-width: 600px; border-bottom: 1px solid #E2E8F0; padding-bottom: 6px; margin-bottom: 6px; }
+        .gantt-label { width: 105px; flex-shrink: 0; font-size: 9px; font-weight: 600; color: #475569; padding-left: 8px; white-space: nowrap; outline: none; }
+        .gantt-label::before { content: ''; position: absolute; left: 2px; top: 50%; transform: translateY(-50%); width: 3px; height: 3px; background: #94A3B8; border-radius: 50%; }
+        .gantt-section-label { width: 100%; font-size: 8px; font-weight: 800; color: #0F766E; padding: 4px 8px; background: rgba(204,251,241,0.5); border-radius: 4px; text-transform: uppercase; margin-top: 8px; letter-spacing: 0.05em; outline: none; }
+        .gantt-track { flex: 1; position: relative; height: 100%; background-image: linear-gradient(to right, rgba(226,232,240,0.4) 1px, transparent 1px); background-size: 1.923% 100%; }
+        .time-col-header { flex: 1; text-align: left; font-size: 8px; font-weight: 700; color: #94A3B8; padding-left: 2px; }
+        .gantt-progress { position: absolute; height: 14px; border-radius: 3px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; padding: 0 6px; font-size: 8px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; outline: none; }
+        
+        .prog-blue { background: linear-gradient(135deg, #3B82F6, #2563EB); }
+        .prog-red { background: linear-gradient(135deg, #F43F5E, #E11D48); }
+        .prog-yellow { background: linear-gradient(135deg, #F59E0B, #D97706); }
+        .prog-green { background: linear-gradient(135deg, #10B981, #059669); }
+
+        .insight-block div { font-size: 0.75rem !important; line-height: 1.5 !important; color: #475569 !important; }
+        .skill-tag, .lang-item-row, .edu-item, .exp-item { position: relative; }
+        
+        /* 導航列樣式 */
+        .nav-link { position: relative; font-size: 0.8rem; font-weight: 700; color: #475569; transition: color 0.3s ease; cursor: pointer; }
+        .nav-link:hover { color: #0F766E; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background-color: #0F766E; transition: width 0.3s ease; }
+        .nav-link:hover::after { width: 100%; }
+
+        /* ======== 視圖模式預設設定 (Visitor Mode) ======== */
+        .edit-only { display: none !important; }
+        .drag-handle { display: none !important; }
+        .tag-delete-btn, .item-delete-btn { display: none !important; }
+        .img-upload-overlay { display: none !important; }
+        [contenteditable] { outline: none !important; pointer-events: none; }
+        .glass-card, .img-container { resize: none !important; }
+        .sortable-container { pointer-events: auto; } /* 保留點擊，移除拖曳 */
+
+        /* ======== 編輯模式設定 (Edit Mode) ======== */
+        body.edit-mode .edit-only { display: flex !important; }
+        body.edit-mode .drag-handle { display: flex !important; cursor: grab; opacity: 0.2; transition: opacity 0.3s; }
+        body.edit-mode .drag-handle:hover { opacity: 1; color: #0F766E; }
+        body.edit-mode .tag-delete-btn { display: inline-block !important; opacity: 0; transition: opacity 0.2s; }
+        body.edit-mode .item-delete-btn { display: inline-block !important; opacity: 0; transition: opacity 0.2s; }
+        body.edit-mode .skill-tag:hover .tag-delete-btn, body.edit-mode .lang-item-row:hover .tag-delete-btn, body.edit-mode .edu-item:hover .item-delete-btn, body.edit-mode .exp-item:hover .item-delete-btn { opacity: 1; }
+        
+        body.edit-mode .img-upload-overlay { position: absolute; inset: 0; background: rgba(15,23,42,0.6); color: white; display: flex !important; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: bold; opacity: 0; transition: all 0.3s ease; cursor: pointer; z-index: 20; backdrop-filter: blur(4px); }
+        body.edit-mode .img-container:hover .img-upload-overlay { opacity: 1; }
+        
+        body.edit-mode [contenteditable] { pointer-events: auto; outline: none; transition: all 0.2s; border-radius: 6px; }
+        body.edit-mode [contenteditable="true"]:focus { background-color: rgba(15,118,110,0.04); padding: 2px 4px; box-shadow: 0 0 0 1px rgba(15,118,110,0.2); }
+        body.edit-mode .glass-card, body.edit-mode .img-container { resize: both !important; overflow: hidden; }
+
+    </style>
+</head>
+
+<body class="premium-bg text-brand-navy">
+    <div class="bg-orb"></div>
+    
+    <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b border-slate-100 py-4 px-8 flex justify-between items-center shadow-sm transition-all duration-300">
+        <div class="text-[12px] font-black text-brand-navy uppercase tracking-[0.25em] flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+            <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-brand-teal to-emerald-500 flex items-center justify-center text-white"><i class="fa-solid fa-c text-[12px]"></i></div>
+            Charmaine Chan
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+            <a onclick="document.getElementById('section-skills').scrollIntoView()" class="nav-link">Skills</a>
+            <a onclick="document.getElementById('section-1').scrollIntoView()" class="nav-link">Projects</a>
+            <a onclick="document.getElementById('section-resume').scrollIntoView()" class="nav-link">Experience</a>
+            <a onclick="document.getElementById('section-creative-perspective').scrollIntoView()" class="nav-link">Creative</a>
+        </div>
+        <div class="md:hidden text-slate-500"><i class="fa-solid fa-bars text-xl"></i></div>
+    </nav>
+
+    <div id="admin-login-trigger" class="fixed bottom-2 right-2 p-3 text-slate-300 hover:text-slate-400 cursor-pointer z-50 transition-colors" onclick="promptLogin()">
+        <i class="fa-solid fa-lock text-[10px]"></i>
+    </div>
+
+    <button id="save-html-btn" onclick="downloadUpdatedHTML()" class="edit-only fixed bottom-6 right-6 bg-brand-navy hover:bg-brand-teal text-white px-6 py-3 rounded-full shadow-xl font-bold z-50 transition-all items-center gap-2 tracking-wide">
+        <i class="fa-solid fa-download"></i> Save HTML
+    </button>
+
+    <div id="portfolio-content" class="pt-28 pb-24">
+        <header class="content-wrapper !pb-10 relative">
+            <div class="max-w-4xl relative">
+                <div class="absolute -left-6 top-0 w-1 h-full bg-gradient-to-b from-brand-teal to-transparent rounded-full opacity-40"></div>
+                <span class="text-brand-teal text-[11px] font-extrabold uppercase tracking-[0.3em] bg-brand-teal/5 px-3.5 py-2 rounded-lg inline-block mb-6" contenteditable="false">Project Management &amp; Marketing</span>
+                <h1 class="text-5xl md:text-6xl font-extrabold text-brand-navy mt-2 mb-6 leading-[1.2] tracking-tight" contenteditable="false">Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-teal to-emerald-500">Charmaine Chan</span> 👋</h1>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-brand-navy mb-6 leading-[1.4] tracking-tight" contenteditable="false">Beyond marketing execution — I'm a project manager <br><span class="text-slate-600">who drives results across different projects.</span></h2>
+                <p class="text-base text-slate-500 max-w-2xl leading-relaxed font-medium" contenteditable="false">Through clear communication and rigorous processes, turning strategy into tangible outcomes — <strong>digital transformation, offline merchandising and brand revamps</strong>.</p>
+            </div>
+        </header>
+        
+        <section class="content-wrapper !py-10" id="section-skills">
+            <div class="glass-card p-10 hover-lift relative">
+                <h3 class="text-sm font-bold text-brand-navy mb-6 border-b border-slate-100 pb-3 uppercase tracking-widest flex items-center gap-2"><i class="fa-solid fa-wand-magic-sparkles text-brand-teal"></i> Core Skills</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="text-[12px] font-bold text-slate-400 uppercase tracking-wider" contenteditable="false">Graphic Design</h4>
+                            <button onclick="addSkillTag(this, 'brand-teal')" class="edit-only text-[10px] text-brand-teal hover:text-brand-tealDark font-bold"><i class="fa-solid fa-plus"></i> Add</button>
+                        </div>
+                        <div class="flex flex-wrap gap-2 skill-container sortable-container">
+                            <span class="skill-tag bg-brand-teal/5 text-brand-teal border border-brand-teal/10 px-3 py-1.5 rounded-lg text-[11px] font-bold shadow-sm inline-flex items-center gap-1"><span contenteditable="false">Photoshop</span><i onclick="this.parentElement.remove()" class="tag-delete-btn fa-solid fa-xmark text-[9px] cursor-pointer text-slate-400 hover:text-red-500 ml-1"></i></span>
+                            <span class="skill-tag bg-brand-teal/5 text-brand-teal border border-brand-teal/10 px-3 py-1.5 rounded-lg text-[11px] font-bold shadow-sm inline-flex items-center gap-1"><span contenteditable="false">Illustrator</span><i onclick="this.parentElement.remove()" class="tag-delete-btn fa-solid fa-xmark text-[9px] cursor-pointer text-slate-400 hover:text-red-500 ml-1"></i></span>
+                            <span class="skill-tag bg-brand-teal/5 text-brand-teal border border-brand-teal/10 px-3 py-1.5 rounded-lg text-[11px] font-bold shadow-sm inline-flex items-center gap-1"><span contenteditable="false">Canva</span><i onclick="this.parentElement.remove()" class="tag-delete-btn fa-solid fa-xmark text-[9px] cursor-pointer text-slate-400 hover:text-red-500 ml-1"></i></span>
+                            <span class="skill-tag bg-brand-teal/5 text-brand-teal border border-brand-teal/10 px-3 py-1.5 rounded-lg text-[11px] font-bold shadow-sm inline-flex items-center gap-1"><span contenteditable="false">PaintTool SAI</span><i onclick="this.parentElement.remove()" class="tag-delete-btn fa-solid fa-xmark text-[9px] cursor-pointer text-slate-400 hover:text-red-500 ml-1"></i></span>
+                            <span class="skill-tag bg-brand-teal/5 text-brand-teal border border-brand-teal/10 px-3 py-1.5 rounded-lg text-[11px] font-bold shadow-sm inline-flex items-center gap-1"><span contenteditable="false">Figma</span><i onclick="this.parentElement.remove()" class="tag-delete-btn fa-solid fa-xmark text-[9px] cursor-pointer text-slate-400 hover:text-red-500 ml-1"></i></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="text-[12px] font-bold text-slate-400 uppercase tracking-wider" contenteditable="false">Data Analytics</h4>
+                            <button onclick="addSkillTag(this, 'amber-600', 'amber-500/5', 'amber-500/10')" class="edit-only text-[10px] text-amber-600 hover:text-amber-700 font-bold"><i class="fa-solid fa-plus"></i> Add</button>
+                        </div>
+                        <div class="flex flex-wrap gap-2 skill-container sortable-container">
+                            <span class="skill-tag bg-amber-500/5 text-amber-600 border border-amber-500/10 px-3 py-1.5 rounded-lg text-[11px] font-bold shadow-sm inline-flex items-center gap-1"><span contenteditable="false">Excel</span><i onclick="this.parentElement.remove()" class="tag-delete-btn fa-solid fa-xmark text-[9px] cursor-pointer text-slate-400 hover:text-red-500 ml-1"></i></span>
+                            <span class="skill-tag bg-amber-500/5 text-amber-600 border border-amber-500/10 px-3 py-1.5 rounded-lg text-[11px] font-bold shadow-sm inline-flex items-center gap-1"><span contenteditable="false">SPSS</span><i onclick="this.parentElement.remove()" class="tag-delete-btn fa-solid fa-xmark text-[9px] cursor-pointer text-slate-400 hover:text-red-500 ml-1"></i></span>
+                            <span class="skill-tag bg-amber-500/5 text-amber-600 border border-amber-500/10 px-3 py-1.5 rounded-lg text-[11px] font-bold shadow-sm inline-flex items-center gap-1"><span contenteditable="false">Google Analytics</span><i onclick="this.parentElement.remove()" class="tag-delete-btn fa-solid fa-xmark text-[9px] cursor-pointer text-slate-400 hover:text-red-500 ml-1"></i></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="text-[12px] font-bold text-slate-400 uppercase tracking-wider" contenteditable="false">Web Development</h4>
+                            <button onclick="addSkillTag(this, 'blue-600', 'blue-500/5', 'blue-500/10')" class="edit-only text-[10px] text-blue-600 hover:text-blue-700 font-bold"><i class="fa-solid fa-plus"></i> Add</button>
+                        </div>
+                        <div class="flex flex-wrap gap-2 skill-container sortable-container">
+                            <span class="skill-tag bg-blue-500/5 text-blue-600 border border-blue-500/10 px-3 py-1.5 rounded-lg text-[11px] font-bold shadow-sm inline-flex items-center gap-1"><span contenteditable="false">HTML</span><i onclick="this.parentElement.remove()" class="tag-delete-btn fa-solid fa-xmark text-[9px] cursor-pointer text-slate-400 hover:text-red-500 ml-1"></i></span>
+                            <span class="skill-tag bg-blue-500/5 text-blue-600 border border-blue-500/10 px-3 py-1.5 rounded-lg text-[11px] font-bold shadow-sm inline-flex items-center gap-1"><span contenteditable="false">JavaScript</span><i onclick="this.parentElement.remove()" class="tag-delete-btn fa-solid fa-xmark text-[9px] cursor-pointer text-slate-400 hover:text-red-500 ml-1"></i></span>
+                            <span class="skill-tag bg-blue-500/5 text-blue-600 border border-blue-500/10 px-3 py-1.5 rounded-lg text-[11px] font-bold shadow-sm inline-flex items-center gap-1"><span contenteditable="false">WordPress</span><i onclick="this.parentElement.remove()" class="tag-delete-btn fa-solid fa-xmark text-[9px] cursor-pointer text-slate-400 hover:text-red-500 ml-1"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="content-wrapper !pt-5 !pb-16 relative">
+            <div class="grid md:grid-cols-3 gap-8 relative z-10 sortable-container" id="header-cards">
+                <div class="glass-card p-10 hover-lift border-t-4 border-t-brand-teal/70"><div class="drag-handle absolute top-5 right-5 text-lg"><i class="fa-solid fa-bars"></i></div><div class="w-12 h-12 bg-brand-teal/5 rounded-2xl flex items-center justify-center text-xl text-brand-teal mb-6 shadow-sm"><i class="fa-solid fa-laptop-code"></i></div><h3 class="font-extrabold text-brand-navy mb-4 text-base tracking-wide" contenteditable="false">Digital Projects</h3><p class="text-[13px] text-slate-500 leading-relaxed font-medium" contenteditable="false"><strong>Led website &amp; app revamp and system migration:</strong> Coordinated 6 vendors &amp; 4 internal departments, solved legacy system constraints.</p></div>
+                <div class="glass-card p-10 hover-lift border-t-4 border-t-amber-400/70"><div class="drag-handle absolute top-5 right-5 text-lg"><i class="fa-solid fa-bars"></i></div><div class="w-12 h-12 bg-amber-500/5 rounded-2xl flex items-center justify-center text-xl text-amber-600 mb-6 shadow-sm"><i class="fa-solid fa-store"></i></div><h3 class="font-extrabold text-brand-navy mb-4 text-base tracking-wide" contenteditable="false">Offline &amp; Merchandising</h3><p class="text-[13px] text-slate-500 leading-relaxed font-medium" contenteditable="false"><strong>Managed 62 store merchandising &amp; large-scale exhibitions:</strong> End-to-end ownership from design, production, logistics to on-site execution.</p></div>
+                <div class="glass-card p-10 hover-lift border-t-4 border-t-blue-400/70"><div class="drag-handle absolute top-5 right-5 text-lg"><i class="fa-solid fa-bars"></i></div><div class="w-12 h-12 bg-blue-500/5 rounded-2xl flex items-center justify-center text-xl text-blue-600 mb-6 shadow-sm"><i class="fa-solid fa-pen-nib"></i></div><h3 class="font-extrabold text-brand-navy mb-4 text-base tracking-wide" contenteditable="false">Brand Visual Revamp</h3><p class="text-[13px] text-slate-500 leading-relaxed font-medium" contenteditable="false"><strong>Translated technical terms into consumer-friendly language:</strong> Rewrote brand manuals, upgraded posters &amp; wall displays to strengthen brand image.</p></div>
+            </div>
+        </section>
+        
+        <div class="text-center mb-8"><span class="text-brand-teal text-[11px] font-extrabold uppercase tracking-[0.2em] bg-brand-teal/5 px-4 py-2 rounded-full inline-flex items-center gap-2" contenteditable="false"><i class="fa-solid fa-briefcase"></i> Featured Projects</span></div>
+        
+        <section class="content-wrapper !py-10" id="section-1">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                <div>
+                    <span class="text-brand-teal text-[11px] font-extrabold uppercase tracking-[0.2em] mb-2 inline-block" contenteditable="false"><i class="fa-solid fa-circle-dot mr-1.5 text-[8px]"></i>&nbsp;Case 01</span>
+                    <h2 class="text-3xl font-black text-brand-navy tracking-tight" contenteditable="false">Digital Transformation: Website &amp; App Revamp</h2>
+                </div>
+                <div class="flex gap-4">
+                    <div class="bg-white px-4 py-2 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-center"><span class="block text-[9px] uppercase font-bold text-rose-400 tracking-wider mb-0.5" contenteditable="false">Project timeline</span><span class="font-black text-rose-700 text-xs tracking-wide" contenteditable="false">3 months</span></div>
+                    <div class="bg-white px-4 py-2 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-center"><span class="block text-[9px] uppercase font-bold text-indigo-400 tracking-wider mb-0.5" contenteditable="false">Team size</span><span class="font-black text-indigo-700 text-xs tracking-wide" contenteditable="false">6 vendors &amp; 4 departments</span></div>
+                </div>
+            </div>
+            
+            <div class="glass-card p-10 mb-12 border border-brand-teal/5 relative">
+                <div class="drag-handle absolute top-5 right-5 text-lg"><i class="fa-solid fa-bars"></i></div>
+                <h4 class="text-xs font-black text-brand-teal uppercase tracking-[0.2em] mb-6 flex items-center gap-2.5" contenteditable="false"><span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-teal opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-brand-teal"></span></span>💡 Marketing-led design decisions</h4>
+                <div class="grid md:grid-cols-2 gap-10">
+                    <div class="space-y-2 border-l-2 border-brand-teal/20 pl-4"><h5 class="text-[14px] font-bold text-brand-navy" contenteditable="false">Highlighting "great value for money"</h5>
+                        <div class="insight-block text-[12px] text-slate-600 leading-relaxed font-medium space-y-1" contenteditable="false">
+                            <div><b>Goal:</b> Make our value-for-money advantage visible to more customers.</div>
+                            <div><b>Action:</b> Cross-department alignment (merchandising) + leadership approval to update legacy processes.</div>
+                            <div><b>Result:</b> New system fully displays prices, strengthening our value image and boosting conversion.</div>
+                        </div>
+                    </div>
+                    <div class="space-y-2 border-l-2 border-brand-teal/20 pl-4"><h5 class="text-[14px] font-bold text-brand-navy" contenteditable="false">Richer visuals, better engagement</h5>
+                        <div class="insight-block text-[12px] text-slate-600 leading-relaxed font-medium space-y-1" contenteditable="false">
+                            <div><b>Goal: </b>Increase time on site and purchase intent.</div>
+                            <div><b>Action: </b>Introduced immersive product hero images, replacing text-heavy layouts.</div>
+                            <div><b>Result: </b>Fresh visual identity, clearer product features, significantly higher browse depth.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="space-y-16">
+                <div class="section-block grid md:grid-cols-12 gap-10 items-start pt-6 relative">
+                    <div class="md:col-span-5 space-y-5">
+                        <h3 class="text-lg font-bold text-brand-navy flex items-center gap-2.5" contenteditable="false"><span class="w-8 h-8 rounded-full bg-brand-teal/5 flex items-center justify-center text-brand-teal text-sm"><i class="fa-solid fa-network-wired"></i></span> Cross-department product classification</h3>
+                        <p class="text-[13px] text-slate-600 leading-relaxed font-medium" contenteditable="false"><span style="font-size: 13px;">Marketing and product teams had conflicting taxonomies. I visualized the gaps with a mind map, facilitated workshops to align both sides, and built a unified template</span><span style="letter-spacing: 0.32px;">&nbsp;balancing customer experience and inventory management.</span></p>
+                        <div class="bg-brand-teal/[0.02] border border-brand-teal/10 px-4 py-3 rounded-2xl relative">
+                            <p class="text-[11px] text-brand-teal font-bold leading-relaxed" contenteditable="false"><i class="fa-solid fa-lightbulb mr-1.5"></i> Example: Kids' shoes<br>• Switched from "product category" to "age-based".<br>• Parents can quickly find the right product for their children.<br>• Result: Greatly reduced drop-off.</p>
+                        </div>
+                    </div>
+                    <div class="md:col-span-7">
+                        <div class="flex flex-col gap-6 sortable-container">
+                            <div class="grid grid-cols-1 gap-4">
+                                <div class="bg-white p-4 rounded-2xl border border-slate-100"><span class="inline-block bg-slate-100 text-slate-500 text-[8px] font-black px-2 py-0.5 rounded-md mb-3 tracking-wider uppercase" contenteditable="false">Before: inventory-based</span><div class="img-container !rounded-xl !border-none !shadow-none h-40"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3250' height='1702' viewBox='0 0 3250 1702'%3E%3Crect width='3250' height='1702' fill='%23f8fafc'/%3E%3Ctext x='1625' y='851' font-family='sans-serif' font-size='80' fill='%2394a3b8' text-anchor='middle' dominant-baseline='middle'%3EPreview%3C/text%3E%3C/svg%3E" alt="Before" id="img-before-zoom"><label class="img-upload-overlay"><input type="file" class="hidden" accept="image/*" onchange="handleImageUpload(event, 'img-before-zoom')">Replace</label></div></div>
+                            </div>
+                            <div class="grid grid-cols-1 gap-4">
+                                <div class="bg-white p-4 rounded-2xl border border-brand-teal/10"><span class="inline-block bg-brand-teal text-white text-[8px] font-black px-2 py-0.5 rounded-md mb-3 tracking-wider uppercase" contenteditable="false">After : customer-facing</span><div class="img-container !rounded-xl !border-none !shadow-none h-40"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='3250' height='1702' viewBox='0 0 3250 1702'%3E%3Crect width='3250' height='1702' fill='%23f0fdfa'/%3E%3Ctext x='1625' y='851' font-family='sans-serif' font-size='80' fill='%230f766e' text-anchor='middle' dominant-baseline='middle'%3EPreview%3C/text%3E%3C/svg%3E" alt="After" id="img-after-zoom"><label class="img-upload-overlay"><input type="file" class="hidden" accept="image/*" onchange="handleImageUpload(event, 'img-after-zoom')">Replace</label></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-block pt-6 border-t border-slate-200/50 relative">
+                    <h3 class="text-lg font-bold text-brand-navy mb-6 flex items-center gap-2.5" contenteditable="false"><span class="w-8 h-8 rounded-full bg-amber-500/5 flex items-center justify-center text-amber-600 text-sm"><i class="fa-solid fa-bolt"></i></span> System migration crisis</h3>
+                    <div class="bg-white p-8 rounded-2xl border border-slate-100 grid md:grid-cols-3 gap-8 items-start">
+                        <div class="space-y-3">
+                            <span class="inline-block text-[11px] font-extrabold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md uppercase tracking-wide" contenteditable="false">Situations</span>
+                            <p class="text-[13px] text-slate-600 font-medium leading-relaxed" contenteditable="false">Vendor staff shortage delayed API delivery; critical gap risk over Christmas &amp; New Year during legacy system switch-off.</p>
+                        </div>
+                        <div class="space-y-3 md:col-span-2 md:border-l border-slate-100 md:pl-8">
+                            <span class="inline-block text-[11px] font-extrabold text-brand-teal bg-brand-teal/5 px-2 py-0.5 rounded-md uppercase tracking-wide" contenteditable="false">Solutions</span>
+                            <ul class="text-[13px] text-slate-600 list-disc list-inside font-medium leading-relaxed space-y-1" contenteditable="false">
+                                <li>Proposed a "phased launch" plan approved by leadership, reducing single-switchover risk.</li>
+                                <li>Communicated with 3 legacy vendors to arrange a short-term backup extension, ensuring business continuity during transition.</li>
+                                <li>Authored temporary POS guides for frontline stores to keep offline operations smooth.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-end">
+                        <div class="bg-emerald-50/60 text-emerald-800 text-xs font-bold px-4 py-2.5 rounded-xl border border-emerald-100 flex items-center gap-2 shadow-sm" contenteditable="false"><i class="fa-solid fa-circle-check text-emerald-600"></i> Outcome: Phase 1 went live on time, store operations transitioned seamlessly.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-20 pt-10 pb-6 border-t border-slate-200/50 relative">
+                <h3 class="text-xs font-bold text-slate-400 mb-8 text-center uppercase tracking-[0.25em]" contenteditable="false">UI/UX experience comparison</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sortable-container" id="ui-ux-grid">
+                    <div class="img-container"><span class="img-label !bg-slate-800/70 !text-white" contenteditable="false">Old Website</span><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600' style='background:%23f1f5f9'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%2394a3b8' font-size='20'%3EUpload%3C/text%3E%3C/svg%3E" class="h-44 md:h-56 w-full object-cover" id="img-ui-1"><label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-ui-1')">Replace</label></div>
+                    <div class="img-container border-2 !border-brand-teal/20"><span class="img-label !bg-brand-teal !text-white" contenteditable="false">New Website</span><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600' style='background:%23f0fdfa'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%230f766e' font-size='20'%3EUpload%3C/text%3E%3C/svg%3E" class="h-44 md:h-56 w-full object-cover" id="img-ui-2"><label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-ui-2')">Replace</label></div>
+                    <div class="img-container"><span class="img-label !bg-slate-800/70 !text-white" contenteditable="false">Old App</span><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600' style='background:%23f1f5f9'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%2394a3b8' font-size='20'%3EUpload%3C/text%3E%3C/svg%3E" class="h-44 md:h-56 w-full object-cover" id="img-ui-3"><label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-ui-3')">Replace</label></div>
+                    <div class="img-container border-2 !border-brand-teal/20"><span class="img-label !bg-brand-teal !text-white" contenteditable="false">New App</span><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600' style='background:%23f0fdfa'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%230f766e' font-size='20'%3EUpload%3C/text%3E%3C/svg%3E" class="h-44 md:h-56 w-full object-cover" id="img-ui-4"><label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-ui-4')">Replace</label></div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="content-wrapper py-20" id="section-2">
+            <div class="mb-12">
+                <span class="text-brand-teal text-[11px] font-extrabold uppercase tracking-[0.2em] mb-2 inline-block" contenteditable="false"><i class="fa-solid fa-circle-dot mr-1.5 text-[8px]"></i> Case 02</span>
+                <h2 class="text-3xl font-black text-brand-navy tracking-tight" contenteditable="false">Offline Merchandising: Hong Kong Book Fair 2025</h2>
+            </div>
+            <div class="mb-12">
+                <div class="glass-card p-8 bg-gradient-to-br from-white to-teal-50/[0.03] relative">
+                    <div class="drag-handle absolute top-5 right-5 text-lg"><i class="fa-solid fa-bars"></i></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-brand-teal/5 rounded-full flex items-center justify-center text-xl text-brand-teal shadow-sm"><i class="fa-solid fa-layer-group"></i></div>
+                            <div>
+                                <h3 class="text-base font-bold text-brand-navy" contenteditable="false">I managed visual merchandising across 62 stores, <br>which has allowed me to apply the same logic to the Book Fair booth.</h3>
+                                <p class="text-xs text-slate-500 font-medium mt-0.5" contenteditable="false">Coordinating materials and displays daily across stores equipped me with the skills to efficiently handle big exhibitions.</p>
+                            </div>
+                        </div>
+                        <span class="text-[9px] font-extrabold bg-brand-teal/5 px-3 py-1.5 rounded-lg text-brand-teal uppercase tracking-widest self-start md:self-center" contenteditable="false">SOP Micro-Timeline Example</span>
+                    </div>
+                    <div class="gantt-wrapper">
+                        <div class="min-w-[600px]">
+                            <div class="gantt-header-row" id="time-header-cols"></div>
+                            <div id="gantt-rows-container" class="flex flex-col"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 sortable-container" id="sortable-grid-2">
+                <div class="glass-card p-8 flex flex-col justify-between relative">
+                    <div class="drag-handle absolute top-5 right-5 text-lg"><i class="fa-solid fa-bars"></i></div>
+                    <div>
+                        <h3 class="text-base font-bold text-brand-navy mb-4 flex items-center gap-2" contenteditable="false">End-to-end control: design to on-site</h3>
+                        <div class="timeline-container">
+                            <div class="timeline-item"><div class="timeline-icon">1</div><div class="bg-white p-3 rounded-2xl border border-slate-100"><h4 class="text-xs font-bold text-brand-navy" contenteditable="false">Design &amp; planning</h4><p class="text-[11px] text-slate-500 mt-1" contenteditable="false">Unified promo materials, verified print dimensions, and scheduled production.</p></div></div>
+                            <div class="timeline-item"><div class="timeline-icon">2</div><div class="bg-white p-3 rounded-2xl border border-slate-100"><h4 class="text-xs font-bold text-brand-navy" contenteditable="false">Logistics &amp; warehousing</h4><p class="text-[11px] text-slate-500 mt-1" contenteditable="false">Completed inventory check, digital display checklist, and arranged off-peak shipping.</p></div></div>
+                            <div class="timeline-item !mb-4"><div class="timeline-icon"><i class="fa-solid fa-check text-[7px]"></i></div><div class="bg-teal-50/40 p-3 rounded-2xl border border-brand-teal/20"><h4 class="text-xs font-bold text-brand-teal" contenteditable="false">On-site execution</h4><p class="text-[11px] text-slate-600 mt-1" contenteditable="false">Supervised all operations, resolved issues instantly, and adapted display guidelines as needed.</p></div></div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mt-6 border-t border-slate-100 pt-6 sortable-container">
+                        <div class="img-container"><span class="img-label !bg-white/95 !text-[8px] !px-2 py-0.5" contenteditable="false">Floor plan</span><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' style='background:%23ffffff'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%2394a3b8' font-size='16'%3EUpload%3C/text%3E%3C/svg%3E" class="!max-h-[110px] object-contain p-2 bg-white w-full" id="img-bf-1"><label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-bf-1')">Replace</label></div>
+                        <div class="img-container"><span class="img-label !bg-white/95 !text-[8px] !px-2 py-0.5" contenteditable="false">Booth design brief</span><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' style='background:%23ffffff'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%2394a3b8' font-size='16'%3EUpload%3C/text%3E%3C/svg%3E" class="!max-h-[110px] object-cover w-full" id="img-bf-2"><label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-bf-2')">Replace</label></div>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-8 flex flex-col justify-between bg-white/50 relative">
+                    <div class="drag-handle absolute top-5 right-5 text-lg"><i class="fa-solid fa-bars"></i></div>
+                    <div class="mb-4">
+                        <h3 class="text-base font-bold text-brand-navy mb-3 flex items-center gap-2" contenteditable="false">Details drive success</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed font-medium mb-5" contenteditable="false">A successful exhibition relies on every small detail.&nbsp;In addition to booth design, ensuring alignment of all display materials is essential for optimizing customer flow and enhancing on-site conversion.</p>
+                        <div class="flex flex-wrap gap-2 mb-4 sortable-container" id="tags-container">
+                            <span class="bg-white border border-slate-100 px-3 py-1 rounded-xl text-[9px] font-bold text-brand-teal shadow-sm cursor-move" contenteditable="false">Price tags</span><span class="bg-white border border-slate-100 px-3 py-1 rounded-xl text-[9px] font-bold text-brand-teal shadow-sm cursor-move" contenteditable="false">Backpack features</span><span class="bg-white border border-slate-100 px-3 py-1 rounded-xl text-[9px] font-bold text-brand-teal shadow-sm cursor-move" contenteditable="false">Magnetic buckle tag</span><span class="bg-white border border-slate-100 px-3 py-1 rounded-xl text-[9px] font-bold text-brand-teal shadow-sm cursor-move" contenteditable="false">Insole tech card</span><span class="bg-white border border-slate-100 px-3 py-1 rounded-xl text-[9px] font-bold text-brand-teal shadow-sm cursor-move" contenteditable="false">School shoe features</span><span class="bg-white border border-slate-100 px-3 py-1 rounded-xl text-[9px] font-bold text-brand-teal shadow-sm cursor-move" contenteditable="false">Socks catalog</span><span class="bg-white border border-slate-100 px-3 py-1 rounded-xl text-[9px] font-bold text-brand-teal shadow-sm cursor-move" contenteditable="false">Product brochure</span><span class="bg-white border border-slate-100 px-3 py-1 rounded-xl text-[9px] font-bold text-brand-teal shadow-sm cursor-move" contenteditable="false">TVC screen content</span><span class="bg-white border border-slate-100 px-3 py-1 rounded-xl text-[9px] font-bold text-brand-teal shadow-sm cursor-move" contenteditable="false">Limited vouchers</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mt-auto border-t border-slate-100 pt-6 sortable-container">
+                        <div class="img-container !rounded-xl"><span class="img-label !bg-brand-navy/90 !text-white !text-[8px] !px-2" contenteditable="false">Setup 01</span><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' style='background:%23f1f5f9'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%2394a3b8' font-size='16'%3EUpload%3C/text%3E%3C/svg%3E" class="h-28 object-cover w-full" id="img-bf-3"><label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-bf-3')">Replace</label></div>
+                        <div class="img-container !rounded-xl"><span class="img-label !bg-brand-navy/90 !text-white !text-[8px] !px-2" contenteditable="false">Setup 02</span><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' style='background:%23f1f5f9'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%2394a3b8' font-size='16'%3EUpload%3C/text%3E%3C/svg%3E" class="h-28 object-cover w-full" id="img-bf-4"><label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-bf-4')">Replace</label></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="content-wrapper py-20" id="section-3">
+            <div class="mb-12">
+                <span class="text-brand-teal text-[11px] font-extrabold uppercase tracking-[0.2em] mb-2 inline-block" contenteditable="false"><i class="fa-solid fa-circle-dot mr-1.5 text-[8px]"></i> Case 03</span>
+                <h2 class="text-3xl font-black text-brand-navy tracking-tight" contenteditable="false">Brand Content &amp; Visuals: STABLI Revamp</h2>
+            </div>
+            
+            <div class="glass-card p-10 mb-12 relative">
+                <div class="drag-handle absolute top-5 right-5 text-lg"><i class="fa-solid fa-bars"></i></div>
+                <div class="flex items-center gap-3 mb-4"><span class="text-[9px] font-extrabold text-brand-teal bg-brand-teal/5 px-2.5 py-1 rounded-md uppercase" contenteditable="false">Core skill</span><h3 class="text-base font-bold text-brand-navy" contenteditable="false">Translating technical terms into consumer-friendly content</h3></div>
+                <p class="text-[13px] text-slate-500 mb-8 font-medium" contenteditable="false">Transforming technical product descriptions into language that resonates with customer pain points, driving engagement and purchase intent.</p>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-slate-50 border border-slate-100 p-6 rounded-2xl">
+                        <span class="text-[10px] font-bold text-slate-500 bg-slate-200 px-2 py-0.5 rounded mb-4 inline-block" contenteditable="false">Before: technical terms overload</span>
+                        <div class="bg-white p-4 rounded-xl border border-slate-100 text-[12px] text-slate-500 italic leading-relaxed mb-4" contenteditable="false">"Short foot exercise – strengthens plantar muscles (abductor hallucis, flexor hallucis brevis, quadratus plantae…) helps maintain arch shape…"</div>
+                        <p class="text-[11px] text-red-500 font-medium flex items-center gap-1.5" contenteditable="false"><i class="fa-solid fa-circle-xmark"></i> <strong>Problem:</strong> Too many terms create distance; customers don't understand what to do.</p>
+                    </div>
+                    <div class="bg-brand-tealLight border border-brand-teal/10 p-6 rounded-2xl">
+                        <span class="text-[10px] font-bold text-brand-teal bg-brand-teal/10 px-2 py-0.5 rounded mb-4 inline-block" contenteditable="false">After: solution-oriented</span>
+                        <div class="bg-white p-4 rounded-xl border border-brand-teal/10 text-[12px] font-bold text-brand-navy mb-4" contenteditable="false">
+                            <p>Short foot exercise – <span style="font-weight: normal;">Strengthens foot muscles, helps slow the progression of bunions.</span></p>
+                            <p class="text-[11px] font-medium text-slate-500 border-l-2 border-brand-teal pl-2 mt-1"><b>Goal</b>: Build strength in the foot muscles, maintain the arch, and reduce pressure on the big toe.</p>
+                        </div>
+                        <p class="text-[11px] text-brand-teal font-medium flex items-center gap-1.5" contenteditable="false"><i class="fa-solid fa-circle-check"></i> <strong>Win:</strong> Clear pain points, logical flow, increased in-store experience and purchase intent.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 sortable-container" id="sortable-grid-3">
+                <div class="glass-card p-8 md:p-10 hover-lift relative">
+                    <div class="drag-handle absolute top-5 right-5 text-lg"><i class="fa-solid fa-bars"></i></div>
+                    <h3 class="text-base font-bold text-brand-navy mb-6 flex items-center justify-between border-b border-slate-100 pb-4" contenteditable="false"><span><i class="fa-solid fa-book-open text-brand-teal mr-2"></i> Project A: Educational booklet &amp; flyers</span></h3>
+                    <div class="flex flex-col gap-8 sortable-container">
+                        <div class="space-y-3"><div class="img-container w-full"><span class="img-label !text-[8px] !px-2" contenteditable="false">Illustration proofing</span><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='300' style='background:%23f1f5f9'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%2394a3b8' font-size='24'%3EUpload%3C/text%3E%3C/svg%3E" class="w-full max-h-[220px] object-contain bg-slate-50" id="img-st-1"><label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-st-1')">Replace</label></div><p class="text-[11px] text-slate-500 leading-relaxed font-medium pt-1" contenteditable="false">Meticulous review of each illustration and copy to ensure medical accuracy.</p></div>
+                        <div class="space-y-3 pt-4 border-t border-slate-100"><div class="img-container border-2 border-brand-teal/10 w-full"><span class="img-label !text-[8px] !px-2" contenteditable="false">Final printed output</span><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='300' style='background:%23f0fdfa'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%230f766e' font-size='24'%3EUpload%3C/text%3E%3C/svg%3E" class="w-full max-h-[220px] object-contain bg-slate-50" id="img-st-2"><label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-st-2')">Replace</label></div><p class="text-[11px] text-brand-teal leading-relaxed font-medium pt-1" contenteditable="false">Clean layout, turning dry technical terms into approachable solutions.</p></div>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-8 md:p-10 hover-lift relative">
+                    <div class="drag-handle absolute top-5 right-5 text-lg"><i class="fa-solid fa-bars"></i></div>
+                    <h3 class="text-base font-bold text-brand-navy mb-6 flex items-center justify-between border-b border-slate-100 pb-4" contenteditable="false"><span><i class="fa-solid fa-object-group text-brand-teal mr-2"></i> Project B: In-store visual upgrade</span></h3>
+                    <div class="space-y-6 sortable-container">
+                        <div class="flex items-center gap-4">
+                            <div class="img-container w-1/2"><span class="img-label !bg-slate-800/70 !text-white !text-[8px]" contenteditable="false">Old poster</span><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='400' style='background:%23f1f5f9'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%2394a3b8' font-size='16'%3EUpload%3C/text%3E%3C/svg%3E" class="h-28 w-full object-cover" id="img-st-3"><label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-st-3')">Replace</label></div>
+                            <div class="text-brand-teal/40"><i class="fa-solid fa-arrow-right-long"></i></div>
+                            <div class="img-container w-1/2 border-2 border-brand-teal/20"><span class="img-label !bg-brand-teal !text-white !text-[8px]" contenteditable="false">New poster</span><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='400' style='background:%23f0fdfa'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%230f766e' font-size='16'%3EUpload%3C/text%3E%3C/svg%3E" class="h-28 w-full object-cover" id="img-st-4"><label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-st-4')">Replace</label></div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="img-container w-1/2"><span class="img-label !bg-slate-800/70 !text-white !text-[8px]" contenteditable="false">Old wall display</span><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='400' style='background:%23f1f5f9'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%2394a3b8' font-size='16'%3EUpload%3C/text%3E%3C/svg%3E" class="h-28 w-full object-cover" id="img-st-5"><label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-st-5')">Replace</label></div>
+                            <div class="text-brand-teal/40"><i class="fa-solid fa-arrow-right-long"></i></div>
+                            <div class="img-container w-1/2 border-2 border-brand-teal/20"><span class="img-label !bg-brand-teal !text-white !text-[8px]" contenteditable="false">New wall display</span><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='400' style='background:%23f0fdfa'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%230f766e' font-size='16'%3EUpload%3C/text%3E%3C/svg%3E" class="h-28 w-full object-cover" id="img-st-6"><label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-st-6')">Replace</label></div>
+                        </div>
+                        <div class="pt-2"><p class="text-[11px] text-brand-teal font-bold bg-brand-teal/5 px-3 py-2 rounded-xl border border-brand-teal/10 inline-block" contenteditable="false"><i class="fa-solid fa-lightbulb mr-1"></i>&nbsp;Direction: <br>Make product benefits clear, support sales flow, unify brand style.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="content-wrapper py-20 border-t border-slate-200/50" id="section-resume">
+            <div class="mb-12">
+                <span class="text-brand-teal text-[11px] font-extrabold uppercase tracking-[0.2em] mb-2 inline-block" contenteditable="false"><i class="fa-solid fa-user-tie mr-1.5 text-[8px]"></i> Professional Background</span>
+                <h2 class="text-3xl md:text-4xl font-black text-brand-navy tracking-tight" contenteditable="false">Experience &amp; Education</h2>
+            </div>
+            <div class="grid md:grid-cols-12 gap-8 relative">
+                <div class="md:col-span-4 space-y-8">
+                    <div class="glass-card p-8 relative">
+                        <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
+                            <h3 class="text-[15px] font-extrabold text-brand-navy uppercase tracking-widest" contenteditable="false">Education</h3>
+                            <button onclick="addEduItem(this)" class="edit-only text-[10px] text-brand-teal hover:text-brand-tealDark font-bold"><i class="fa-solid fa-plus"></i> Add</button>
+                        </div>
+                        <div id="education-list-container" class="space-y-5 sortable-container">
+                            <div class="edu-item relative group pb-4 border-b border-slate-50 last:border-0 last:pb-0">
+                                <i onclick="if(confirm('Delete this education entry?')) this.closest('.edu-item').remove()" class="item-delete-btn fa-solid fa-trash-can absolute -right-2 top-0 text-[12px] cursor-pointer text-slate-300 hover:text-red-500 ml-1"></i>
+                                <div class="drag-handle absolute -left-6 top-0 text-slate-300 hover:text-brand-teal p-1"><i class="fa-solid fa-grip-vertical"></i></div>
+                                <h4 class="text-[13px] font-bold text-slate-800 pr-6" contenteditable="false">Hang Seng University of Hong Kong</h4>
+                                <p class="text-[11px] text-brand-teal font-bold mb-1"><span contenteditable="false">BBA in Marketing</span> <span class="text-slate-400 font-normal">| <span contenteditable="false">2018 - 2021</span></span></p>
+                                <ul class="text-[11px] text-slate-500 list-disc list-inside space-y-0.5" contenteditable="false">
+                                    <li>Dean's List (4 consecutive years)</li>
+                                    <li>Top GPA 2018–2020</li>
+                                </ul>
+                            </div>
+                            <div class="edu-item relative group pb-4 border-b border-slate-50 last:border-0 last:pb-0">
+                                <i onclick="if(confirm('Delete this education entry?')) this.closest('.edu-item').remove()" class="item-delete-btn fa-solid fa-trash-can absolute -right-2 top-0 text-[12px] cursor-pointer text-slate-300 hover:text-red-500 ml-1"></i>
+                                <div class="drag-handle absolute -left-6 top-0 text-slate-300 hover:text-brand-teal p-1"><i class="fa-solid fa-grip-vertical"></i></div>
+                                <h4 class="text-[13px] font-bold text-slate-800 pr-6" contenteditable="false">Maryknoll Convent School</h4>
+                                <p class="text-[11px] text-slate-400" contenteditable="false">2011 - 2017</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card p-8">
+                        <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
+                            <h3 class="text-[15px] font-extrabold text-brand-navy uppercase tracking-widest" contenteditable="false">Languages</h3>
+                            <button onclick="addLanguageRow()" class="edit-only text-[10px] text-brand-teal hover:text-brand-tealDark font-bold"><i class="fa-solid fa-plus"></i> Add</button>
+                        </div>
+                        <div class="space-y-3 sortable-container" id="language-list-container">
+                            <div class="lang-item-row flex justify-between items-center"><div class="drag-handle text-slate-300 hover:text-brand-teal mr-2 text-[10px]"><i class="fa-solid fa-grip-vertical"></i></div><span class="font-bold text-slate-700 text-[12px] flex-1" contenteditable="false">Cantonese</span><div class="flex items-center gap-2"><span class="text-brand-teal font-bold bg-brand-teal/10 px-2 py-0.5 rounded text-[10px]" contenteditable="false">Native</span><i onclick="this.parentElement.parentElement.remove()" class="tag-delete-btn fa-solid fa-trash-can text-[10px] cursor-pointer text-slate-300 hover:text-red-500"></i></div></div>
+                            <div class="lang-item-row flex justify-between items-center"><div class="drag-handle text-slate-300 hover:text-brand-teal mr-2 text-[10px]"><i class="fa-solid fa-grip-vertical"></i></div><span class="font-bold text-slate-700 text-[12px] flex-1" contenteditable="false">Mandarin</span><div class="flex items-center gap-2"><span class="text-brand-teal font-bold bg-brand-teal/10 px-2 py-0.5 rounded text-[10px]" contenteditable="false">Fluent (PSC 2A)</span><i onclick="this.parentElement.parentElement.remove()" class="tag-delete-btn fa-solid fa-trash-can text-[10px] cursor-pointer text-slate-300 hover:text-red-500"></i></div></div>
+                            <div class="lang-item-row flex justify-between items-center"><div class="drag-handle text-slate-300 hover:text-brand-teal mr-2 text-[10px]"><i class="fa-solid fa-grip-vertical"></i></div><span class="font-bold text-slate-700 text-[12px] flex-1" contenteditable="false">English</span><div class="flex items-center gap-2"><span class="text-brand-teal font-bold bg-brand-teal/10 px-2 py-0.5 rounded text-[10px]" contenteditable="false">Fluent (IELTS 7.5)</span><i onclick="this.parentElement.parentElement.remove()" class="tag-delete-btn fa-solid fa-trash-can text-[10px] cursor-pointer text-slate-300 hover:text-red-500"></i></div></div>
+                            <div class="lang-item-row flex justify-between items-center"><div class="drag-handle text-slate-300 hover:text-brand-teal mr-2 text-[10px]"><i class="fa-solid fa-grip-vertical"></i></div><span class="font-bold text-slate-700 text-[12px] flex-1" contenteditable="false">Japanese</span><div class="flex items-center gap-2"><span class="text-brand-teal font-bold bg-brand-teal/10 px-2 py-0.5 rounded text-[10px]" contenteditable="false">Fluent</span><i onclick="this.parentElement.parentElement.remove()" class="tag-delete-btn fa-solid fa-trash-can text-[10px] cursor-pointer text-slate-300 hover:text-red-500"></i></div></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-8 space-y-6">
+                    <div class="flex justify-between items-center mb-2 pl-2 border-b border-slate-100 pb-2">
+                        <h3 class="text-[15px] font-extrabold text-brand-navy uppercase tracking-widest" contenteditable="false">Work Experience</h3>
+                        <button onclick="addExpItem(this)" class="edit-only text-[10px] text-brand-teal hover:text-brand-tealDark font-bold"><i class="fa-solid fa-plus"></i> Add</button>
+                    </div>
+                    
+                    <div id="experience-list-container" class="space-y-6 sortable-container">
+                        <div class="exp-item glass-card p-8 border-2 border-brand-teal/20 bg-brand-tealLight/30 relative group">
+                            <i onclick="if(confirm('Delete this work experience?')) this.closest('.exp-item').remove()" class="item-delete-btn fa-solid fa-trash-can absolute right-4 top-4 text-[14px] cursor-pointer text-slate-300 hover:text-red-500 ml-1"></i>
+                            <div class="drag-handle absolute left-3 top-3 text-slate-300 hover:text-brand-teal p-1"><i class="fa-solid fa-grip-vertical"></i></div>
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-2 pr-8 pl-4">
+                                <h4 class="text-[15px] font-extrabold text-brand-navy" contenteditable="false">Dr. Kong Footcare Limited</h4>
+                                <span class="text-[11px] font-bold text-brand-teal bg-white border border-brand-teal/20 px-2.5 py-1 rounded-md w-fit mt-2 md:mt-0" contenteditable="false">08/2021 – 04/2026</span>
+                            </div>
+                            <p class="text-[12px] font-bold text-brand-teal mb-3 pl-4" contenteditable="false">Marketing Executive</p>
+                            <div class="pl-4">
+                                <p class="text-[12px] text-slate-600 font-medium leading-relaxed" contenteditable="false">Led digital transformation, visual merchandising for 60+ stores across HK/Macau, and large-scale exhibitions. Detailed achievements in Cases 01-03 above.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="exp-item glass-card p-8 relative group">
+                            <i onclick="if(confirm('Delete this work experience?')) this.closest('.exp-item').remove()" class="item-delete-btn fa-solid fa-trash-can absolute right-4 top-4 text-[14px] cursor-pointer text-slate-300 hover:text-red-500 ml-1"></i>
+                            <div class="drag-handle absolute left-3 top-3 text-slate-300 hover:text-brand-teal p-1"><i class="fa-solid fa-grip-vertical"></i></div>
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-2 pr-8 pl-4">
+                                <h4 class="text-[15px] font-extrabold text-brand-navy" contenteditable="false">University of Hong Kong</h4>
+                                <span class="text-[11px] font-bold text-slate-400 bg-slate-100 px-2.5 py-1 rounded-md w-fit mt-2 md:mt-0" contenteditable="false">06/2021 – 05/2023</span>
+                            </div>
+                            <p class="text-[12px] font-bold text-brand-teal mb-3 pl-4" contenteditable="false">Research Assistant II</p>
+                            <div class="pl-4">
+                                <ul class="text-[12px] text-slate-600 list-disc list-inside space-y-1" contenteditable="false">
+                                    <li>Data analysis: qualitative &amp; quantitative, contributed to academic publications.</li>
+                                    <li>Transcription &amp; translation: prepared journal-ready interview transcripts.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="exp-item glass-card p-8 relative group">
+                            <i onclick="if(confirm('Delete this work experience?')) this.closest('.exp-item').remove()" class="item-delete-btn fa-solid fa-trash-can absolute right-4 top-4 text-[14px] cursor-pointer text-slate-300 hover:text-red-500 ml-1"></i>
+                            <div class="drag-handle absolute left-3 top-3 text-slate-300 hover:text-brand-teal p-1"><i class="fa-solid fa-grip-vertical"></i></div>
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-2 pr-8 pl-4">
+                                <h4 class="text-[15px] font-extrabold text-brand-navy" contenteditable="false">Hang Seng University of Hong Kong</h4>
+                                <span class="text-[11px] font-bold text-slate-400 bg-slate-100 px-2.5 py-1 rounded-md w-fit mt-2 md:mt-0" contenteditable="false">02/2020 – 07/2020</span>
+                            </div>
+                            <p class="text-[12px] font-bold text-brand-teal mb-3 pl-4" contenteditable="false">Research Assistant</p>
+                            <div class="pl-4">
+                                <ul class="text-[12px] text-slate-600 list-disc list-inside space-y-1" contenteditable="false">
+                                    <li>Market research: led in-depth studies, data coding &amp; classification.</li>
+                                    <li>UI prototyping: created mobile app prototypes for usability testing.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="exp-item glass-card p-8 relative group">
+                            <i onclick="if(confirm('Delete this work experience?')) this.closest('.exp-item').remove()" class="item-delete-btn fa-solid fa-trash-can absolute right-4 top-4 text-[14px] cursor-pointer text-slate-300 hover:text-red-500 ml-1"></i>
+                            <div class="drag-handle absolute left-3 top-3 text-slate-300 hover:text-brand-teal p-1"><i class="fa-solid fa-grip-vertical"></i></div>
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-2 pr-8 pl-4">
+                                <h4 class="text-[15px] font-extrabold text-brand-navy" contenteditable="false">Cyberport</h4>
+                                <span class="text-[11px] font-bold text-slate-400 bg-slate-100 px-2.5 py-1 rounded-md w-fit mt-2 md:mt-0" contenteditable="false">02/2021 – 05/2022</span>
+                            </div>
+                            <p class="text-[12px] font-bold text-brand-teal mb-3 pl-4" contenteditable="false">Part-time Social Media Designer</p>
+                            <div class="pl-4">
+                                <ul class="text-[12px] text-slate-600 list-disc list-inside space-y-1" contenteditable="false">
+                                    <li>Created engaging visuals for tech talent recruitment campaigns.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="exp-item glass-card p-8 relative group">
+                            <i onclick="if(confirm('Delete this work experience?')) this.closest('.exp-item').remove()" class="item-delete-btn fa-solid fa-trash-can absolute right-4 top-4 text-[14px] cursor-pointer text-slate-300 hover:text-red-500 ml-1"></i>
+                            <div class="drag-handle absolute left-3 top-3 text-slate-300 hover:text-brand-teal p-1"><i class="fa-solid fa-grip-vertical"></i></div>
+                            <div class="flex flex-col md:flex-row md:items-center justify-between mb-2 pr-8 pl-4">
+                                <h4 class="text-[15px] font-extrabold text-brand-navy" contenteditable="false">Freelance</h4>
+                                <span class="text-[11px] font-bold text-slate-400 bg-slate-100 px-2.5 py-1 rounded-md w-fit mt-2 md:mt-0" contenteditable="false">06/2016 – 01/2021</span>
+                            </div>
+                            <p class="text-[12px] font-bold text-brand-teal mb-3 pl-4" contenteditable="false">Illustrator &amp; Graphic Designer</p>
+                            <div class="pl-4">
+                                <ul class="text-[12px] text-slate-600 list-disc list-inside space-y-1" contenteditable="false">
+                                    <li>Provided custom illustrations, key visuals, and brand design for clients.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-wrapper py-20 border-t border-slate-200/50" id="section-creative-perspective">
+            <div class="mb-12">
+                <span class="text-brand-teal text-[11px] font-extrabold uppercase tracking-[0.2em] mb-2 inline-block" contenteditable="false"><i class="fa-solid fa-palette mr-1.5 text-[8px]"></i>&nbsp;more about me</span>
+                <h2 class="text-3xl md:text-4xl font-black text-brand-navy tracking-tight" contenteditable="false">Creative Perspective</h2>
+            </div>
+            
+            <div class="glass-card p-8 bg-white/50 relative">
+                <div class="drag-handle absolute top-5 right-5 text-lg"><i class="fa-solid fa-bars"></i></div>
+                <p class="text-sm text-slate-600 leading-relaxed font-medium mb-8" contenteditable="false">I love to draw in my spare time—it's one of my favorite hobbies. Sketching and illustrating have helped me develop a good eye for colors, layouts, and small details, which really boost my creativity when working on marketing projects</p>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 sortable-container" id="creative-grid">
+                    <div class="img-container aspect-[1/2] !min-h-0 !h-auto">
+                        <span class="img-label !text-[8px] !px-2" contenteditable="false">Illustration 01</span>
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='600' style='background:%23f1f5f9'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%2394a3b8' font-size='16'%3EUpload%3C/text%3E%3C/svg%3E" class="w-full h-full !object-cover" id="img-creative-1">
+                        <label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-creative-1')">Replace</label>
+                    </div>
+                    <div class="img-container aspect-[1/2] !min-h-0 !h-auto border-2 border-brand-teal/10">
+                        <span class="img-label !text-[8px] !px-2" contenteditable="false">Illustration 02</span>
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='600' style='background:%23f0fdfa'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%230f766e' font-size='16'%3EUpload%3C/text%3E%3C/svg%3E" class="w-full h-full !object-cover" id="img-creative-2">
+                        <label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-creative-2')">Replace</label>
+                    </div>
+                    <div class="img-container aspect-[1/2] !min-h-0 !h-auto">
+                        <span class="img-label !text-[8px] !px-2" contenteditable="false">Illustration 03</span>
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='600' style='background:%23f1f5f9'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%2394a3b8' font-size='16'%3EUpload%3C/text%3E%3C/svg%3E" class="w-full h-full !object-cover" id="img-creative-3">
+                        <label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-creative-3')">Replace</label>
+                    </div>
+                    <div class="img-container aspect-[1/2] !min-h-0 !h-auto border-2 border-brand-teal/10">
+                        <span class="img-label !text-[8px] !px-2" contenteditable="false">Illustration 04</span>
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='600' style='background:%23f0fdfa'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%230f766e' font-size='16'%3EUpload%3C/text%3E%3C/svg%3E" class="w-full h-full !object-cover" id="img-creative-4">
+                        <label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-creative-4')">Replace</label>
+                    </div>
+                    <div class="img-container aspect-[1/2] !min-h-0 !h-auto">
+                        <span class="img-label !text-[8px] !px-2" contenteditable="false">Illustration 05</span>
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='600' style='background:%23f1f5f9'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%2394a3b8' font-size='16'%3EUpload%3C/text%3E%3C/svg%3E" class="w-full h-full !object-cover" id="img-creative-5">
+                        <label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-creative-5')">Replace</label>
+                    </div>
+                    <div class="img-container aspect-[1/2] !min-h-0 !h-auto border-2 border-brand-teal/10">
+                        <span class="img-label !text-[8px] !px-2" contenteditable="false">Illustration 06</span>
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='600' style='background:%23f0fdfa'%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle' fill='%230f766e' font-size='16'%3EUpload%3C/text%3E%3C/svg%3E" class="w-full h-full !object-cover" id="img-creative-6">
+                        <label class="img-upload-overlay"><input type="file" hidden="" accept="image/*" onchange="handleImageUpload(event,'img-creative-6')">Replace</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script>
+        // 登入邏輯
+        function promptLogin() {
+            if(document.body.classList.contains('edit-mode')) {
+                // 如果已經在編輯模式，則退出並鎖定
+                document.body.classList.remove('edit-mode');
+                document.querySelectorAll('[contenteditable]').forEach(el => el.setAttribute('contenteditable', 'false'));
+                alert("Locked and exited edit mode.");
+                return;
+            }
+
+            const username = prompt("Enter Admin Username:");
+            if (username === "12345678") {
+                const password = prompt("Enter Password:");
+                if (password === "abcdef") {
+                    document.body.classList.add('edit-mode');
+                    document.querySelectorAll('[contenteditable]').forEach(el => el.setAttribute('contenteditable', 'true'));
+                    alert("Authentication successful. Edit mode unlocked.");
+                } else {
+                    alert("Incorrect password.");
+                }
+            } else if (username !== null) {
+                alert("Unknown user.");
+            }
+        }
+
+        // 初始化拖曳功能
+        function initSortable() { document.querySelectorAll('.sortable-container').forEach(c => new Sortable(c, { animation: 150, handle: '.drag-handle', ghostClass: 'sortable-ghost', group: 'shared' })); }
+        
+        // 圖片上傳預覽
+        function handleImageUpload(e, id) { const f = e.target.files[0]; if(f){ const r=new FileReader(); r.onload=ev=>document.getElementById(id).src=ev.target.result; r.readAsDataURL(f); } }
+        
+        // 渲染甘特圖
+        function renderGantt() { 
+            const days=[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]; 
+            const data=[{type:'section',name:'Promotions (Product)'},{type:'task',name:'Promotion Planning',start:0,duration:4,color:'prog-red'},{type:'task',name:'Promotion Finalization',start:4,duration:3,color:'prog-red'},{type:'section',name:'Design (Marketing)'},{type:'task',name:'Key Visual (KV)',start:5,duration:6,color:'prog-green'},{type:'task',name:'Design Finalization',start:16,duration:4,color:'prog-red'},{type:'task',name:'Extended Materials',start:19,duration:5,color:'prog-green'},{type:'section',name:'Specs & Quantity (OP)'},{type:'task',name:'Format Confirmation',start:10,duration:3,color:'prog-blue'},{type:'task',name:'Quantity Approval',start:20,duration:4,color:'prog-yellow'},{type:'section',name:'Production & Shipping'},{type:'task',name:'Production & Customs',start:27,duration:12,color:'prog-blue'},{type:'task',name:'Logistics to Stores',start:39,duration:6,color:'prog-green'}]; 
+            const h=document.getElementById('time-header-cols'), r=document.getElementById('gantt-rows-container'); 
+            if(!h||!r)return; 
+            h.innerHTML=''; 
+            days.forEach(d=>{const c=document.createElement('div');c.className='time-col-header';c.innerText=d;h.appendChild(c);}); 
+            r.innerHTML=''; 
+            data.forEach(i=>{
+                if(i.type==='section'){
+                    const row=document.createElement('div');
+                    row.className='gantt-section-label';
+                    row.innerText=i.name;
+                    row.setAttribute('contenteditable','false'); 
+                    r.appendChild(row);
+                }else{
+                    const row=document.createElement('div');
+                    row.className='gantt-row';
+                    const lab=document.createElement('div');
+                    lab.className='gantt-label';
+                    lab.innerHTML=i.name;
+                    lab.setAttribute('contenteditable','false'); 
+                    const track=document.createElement('div');
+                    track.className='gantt-track';
+                    const left=(i.start/52)*100, w=(i.duration/52)*100;
+                    const bar=document.createElement('div');
+                    bar.className=`gantt-progress ${i.color}`;
+                    bar.style.left=`${left}%`;
+                    bar.style.width=`${w}%`;
+                    bar.innerText=i.name;
+                    bar.setAttribute('contenteditable','false'); 
+                    track.appendChild(bar);
+                    row.appendChild(lab);
+                    row.appendChild(track);
+                    r.appendChild(row);
+                }
+            }); 
+        }
+        
+        // 儲存 HTML
+        function downloadUpdatedHTML() { if(document.activeElement) document.activeElement.blur(); const html="<!DOCTYPE html>\n"+document.documentElement.outerHTML; const blob=new Blob([html],{type:'text/html'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='Charmaine_Portfolio_GitHub.html'; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(blob); alert('Portfolio saved!'); }
+        
+        // 其他新增工具函數
+        function addSkillTag(btn, textColor, bgColor = 'brand-teal/5', borderColor = 'brand-teal/10') {
+            const container = btn.parentElement.nextElementSibling;
+            const newTag = document.createElement('span');
+            newTag.className = `skill-tag bg-${bgColor} text-${textColor} border border-${borderColor} px-3 py-1.5 rounded-lg text-[11px] font-bold shadow-sm inline-flex items-center gap-1`;
+            newTag.innerHTML = `<span contenteditable="true">New Skill</span><i onclick="this.parentElement.remove()" class="tag-delete-btn fa-solid fa-xmark text-[9px] cursor-pointer text-slate-400 hover:text-red-500 ml-1"></i>`;
+            container.appendChild(newTag);
+            newTag.querySelector('span').focus();
+        }
+
+        function addLanguageRow() {
+            const container = document.getElementById('language-list-container');
+            const newRow = document.createElement('div');
+            newRow.className = 'lang-item-row flex justify-between items-center';
+            newRow.innerHTML = `<div class="drag-handle text-slate-300 hover:text-brand-teal mr-2 text-[10px]"><i class="fa-solid fa-grip-vertical"></i></div><span class="font-bold text-slate-700 text-[12px] flex-1" contenteditable="true">New Language</span><div class="flex items-center gap-2"><span class="text-brand-teal font-bold bg-brand-teal/10 px-2 py-0.5 rounded text-[10px]" contenteditable="true">Proficiency</span><i onclick="this.parentElement.parentElement.remove()" class="tag-delete-btn fa-solid fa-trash-can text-[10px] cursor-pointer text-slate-300 hover:text-red-500"></i></div>`;
+            container.appendChild(newRow);
+            newRow.querySelector('span').focus();
+        }
+
+        function addEduItem(btn) {
+            const container = document.getElementById('education-list-container');
+            const newItem = document.createElement('div');
+            newItem.className = 'edu-item relative group pb-4 border-b border-slate-50 last:border-0 last:pb-0';
+            newItem.innerHTML = `<i onclick="if(confirm('Delete this education entry?')) this.closest('.edu-item').remove()" class="item-delete-btn fa-solid fa-trash-can absolute -right-2 top-0 text-[12px] cursor-pointer text-slate-300 hover:text-red-500 ml-1"></i><div class="drag-handle absolute -left-6 top-0 text-slate-300 hover:text-brand-teal p-1"><i class="fa-solid fa-grip-vertical"></i></div><h4 class="text-[13px] font-bold text-slate-800 pr-6" contenteditable="true">New School</h4><p class="text-[11px] text-brand-teal font-bold mb-1"><span contenteditable="true">Degree Name</span> <span class="text-slate-400 font-normal">| <span contenteditable="true">Year</span></span></p><ul class="text-[11px] text-slate-500 list-disc list-inside space-y-0.5" contenteditable="true"><li>Description...</li></ul>`;
+            container.appendChild(newItem);
+            newItem.querySelector('h4').focus();
+        }
+
+        function addExpItem(btn) {
+            const container = document.getElementById('experience-list-container');
+            const newItem = document.createElement('div');
+            newItem.className = 'exp-item glass-card p-8 relative group';
+            newItem.innerHTML = `<i onclick="if(confirm('Delete this work experience?')) this.closest('.exp-item').remove()" class="item-delete-btn fa-solid fa-trash-can absolute right-4 top-4 text-[14px] cursor-pointer text-slate-300 hover:text-red-500 ml-1"></i><div class="drag-handle absolute left-3 top-3 text-slate-300 hover:text-brand-teal p-1"><i class="fa-solid fa-grip-vertical"></i></div><div class="flex flex-col md:flex-row md:items-center justify-between mb-2 pr-8 pl-4"><h4 class="text-[15px] font-extrabold text-brand-navy" contenteditable="true">New Company</h4><span class="text-[11px] font-bold text-slate-400 bg-slate-100 px-2.5 py-1 rounded-md w-fit mt-2 md:mt-0" contenteditable="true">Start Year – End Year</span></div><p class="text-[12px] font-bold text-brand-teal mb-3 pl-4" contenteditable="true">Job Title</p><div class="pl-4"><ul class="text-[12px] text-slate-600 list-disc list-inside space-y-1" contenteditable="true"><li>Responsibilities & achievements...</li></ul></div>`;
+            container.appendChild(newItem);
+            newItem.querySelector('h4').focus();
+        }
+
+        document.addEventListener('DOMContentLoaded',()=>{ 
+            initSortable(); 
+            renderGantt(); 
+        });
+    </script>
+</body>
+</html>
